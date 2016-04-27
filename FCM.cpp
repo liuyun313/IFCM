@@ -17,7 +17,7 @@ namespace ker
 		nDim=b;
 		nClu=c;
 		J=0;
-		q=2;
+		q=1.1;
 
 		//membership matrix initialization using random number 
 		u=new double*[nVec];
@@ -238,4 +238,3 @@ namespace ker
 
 
 }
-

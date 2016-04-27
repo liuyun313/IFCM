@@ -10,8 +10,9 @@ This source code is suitable for all unix-like 64-bit system with gcc installed.
 
 How to use this method:
 (1)make  (the executive file 'IFCM' will be in this dictionary)
-(2)./IFCM inputfile
-	for example: ./IFCM example.fna
+(2)use Nonpareil (https://github.com/lmrodriguezr/nonpareil/) or other similar method to estimate the coverage of metagenome
+(3)./IFCM inputfile coverage
+	for example: ./IFCM example.fna coverage
 
 Output:
 result.txt file with the cluster label of each contig, from Cluster 0 to Cluster k.

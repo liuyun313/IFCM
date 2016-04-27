@@ -119,14 +119,15 @@ int main(int argc, char *argv[])
 	t1=time(NULL);
 	char f[100];
 	strcpy(f, argv[1]);
-	
+	double coverage;
+	coverage=atof(argv[2]);
 	
 //***********************file read*******************//
 	//calculate the number of symbols in the input file
 	ifstream in(f);//("1a.fna");
 	in.seekg(0, ios::end);      //set the file point to the end of the file stream
 	streampos ps = in.tellg();  //read the position the poing,while ps will be the symbol number
-	in.close();                 //鍏抽棴鏂囦欢娴?
+	in.close();                 //关闭文件�?
 	FILE *fd;
 	int len=int(ps);
 	char *str=new char[len];
@@ -225,7 +226,7 @@ int main(int argc, char *argv[])
 	delete str;
 //*********************end**********************//
         
-	cout<<'a'<<endl;
+	//cout<<'a'<<endl;
 //***************calculate the k-mer frequency*************//
 	//int x[256]={0},*p;
 	int **X1=new int*[num];//feature vector with dimension num*256
@@ -261,10 +262,10 @@ int main(int argc, char *argv[])
 
 //*****************species number estimation****************//
 	int l=0,kmin=0,kmax=0;//sequencing depth, average length of DNA reads and estimated species number
-	int Gmin=1.18e6,Gmax=5.24e6;
+	int Gmin=9.4e5,Gmax=6.4e6;
 	for(i=0;i<num;i++)l+=bp[i];
-	kmin=(int)l/Gmax;
-	kmax=(int)l/Gmin;
+	kmin=(int)l/Gmax/coverage;
+	kmax=(int)l/Gmin/coverage;
 	if(kmin<3){kmin=3;kmax=5*kmin;}
 	cout<<"The number of contigs: "<<num<<endl;
 	cout<<"The total lenth of contigs :"<<l<<endl;
@@ -293,9 +294,9 @@ int main(int argc, char *argv[])
 	for(i=0;i<n;i++)
 	{
 		FCM *fcm=new FCM(num,136,kmin+i);
-		fcm->Cluster(X,label[i]);//cout<<X[0][0]<<endl;
+		fcm->Cluster(X,label[i]);
 		J[i]=fcm->getF();
-		cout<<kmin+i<<' '<<J[i]<<endl;
+		cout<<"FS("<<kmin+i<<")="<<J[i]<<endl;
 		delete fcm;
 	}
 
